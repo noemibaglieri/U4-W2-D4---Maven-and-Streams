@@ -4,10 +4,7 @@ import noemibaglieri.entities.Customer;
 import noemibaglieri.entities.Order;
 import noemibaglieri.entities.Product;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Application {
@@ -39,7 +36,10 @@ public class Application {
         Map<String, Double> totalOfAllProductsByClient = orders.stream().collect(Collectors.groupingBy(customer -> customer.getCustomer().getName(), Collectors.summingDouble(Order::getTotal)));
         totalOfAllProductsByClient.forEach((customer, total) -> System.out.println("- Customer: " + customer + " - Total of ordered products: " + total + "€"));
 
-        
+        System.out.println("--- TASK 3 ---");
+        System.out.println("Sort products by highest price");
+        List<Product> productsSortedByHighestPrice = warehouse.stream().sorted(Comparator.comparing(Product::getPrice).reversed()).toList();
+        productsSortedByHighestPrice.forEach(product -> System.out.println(product));
     }
 
     public static void initializeWarehouse() {
