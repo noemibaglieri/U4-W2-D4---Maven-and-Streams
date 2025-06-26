@@ -50,7 +50,10 @@ public class Application {
         System.out.println(averageOrderTotal);
 
         System.out.println("--- TASK 5 ---");
-        System.out.println("Average order total");
+        System.out.println("Products grouped by category + category sum");
+        Map<String, Double> sumOfEachProductCategory = warehouse.stream().collect(Collectors.groupingBy(category -> category.getCategory(), Collectors.summingDouble(total -> total.getPrice())));
+        sumOfEachProductCategory.forEach((category, total) -> System.out.println("- Category: " + category + " - Total: " + total));
+
     }
 
     public static void initializeWarehouse() {
