@@ -20,8 +20,9 @@ public class Application {
         createCustomers();
         placeOrders();
 
+        System.out.println("--- TASK 1 ---");
+        System.out.println("Show all orders by customer");
         Map<String, List<Order>> ordersByClient = orders.stream().collect(Collectors.groupingBy(order -> order.getCustomer().getName()));
-
         ordersByClient.forEach((customerName, orderList) -> {
             System.out.println("Customer: " + customerName);
             System.out.println("Orders:");
@@ -33,13 +34,23 @@ public class Application {
             System.out.println(ordersByClient);
         });
 
+        System.out.println("--- TASK 2 ---");
+        System.out.println("Total of all prodcuts by Customer");
         Map<String, Double> totalOfAllProductsByClient = orders.stream().collect(Collectors.groupingBy(customer -> customer.getCustomer().getName(), Collectors.summingDouble(Order::getTotal)));
         totalOfAllProductsByClient.forEach((customer, total) -> System.out.println("- Customer: " + customer + " - Total of ordered products: " + total + "€"));
 
         System.out.println("--- TASK 3 ---");
         System.out.println("Sort products by highest price");
         List<Product> productsSortedByHighestPrice = warehouse.stream().sorted(Comparator.comparing(Product::getPrice).reversed()).toList();
-        productsSortedByHighestPrice.forEach(product -> System.out.println(product));
+        productsSortedByHighestPrice.forEach(System.out::println);
+
+        System.out.println("--- TASK 4 ---");
+        System.out.println("Average order total");
+        Double averageOrderTotal = orders.stream().collect(Collectors.averagingDouble(order -> order.getTotal()));
+        System.out.println(averageOrderTotal);
+
+        System.out.println("--- TASK 5 ---");
+        System.out.println("Average order total");
     }
 
     public static void initializeWarehouse() {
