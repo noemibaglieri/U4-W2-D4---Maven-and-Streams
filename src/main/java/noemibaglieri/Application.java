@@ -36,6 +36,9 @@ public class Application {
             System.out.println(ordersByClient);
         });
 
+        Map<String, Double> totalOfAllProductsByClient = orders.stream().collect(Collectors.groupingBy(customer -> customer.getCustomer().getName(), Collectors.summingDouble(Order::getTotal)));
+        totalOfAllProductsByClient.forEach((customer, total) -> System.out.println("- Customer: " + customer + " - Total of ordered products: " + total + "€"));
+
         
     }
 
